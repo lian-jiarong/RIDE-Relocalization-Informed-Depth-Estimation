@@ -297,7 +297,7 @@ h1 {
 
 .affiliation-mark {
   width: min(100%, 520px);
-  margin-top: 24px;
+  margin: 0 0 28px;
   padding: 14px 18px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 14px;
