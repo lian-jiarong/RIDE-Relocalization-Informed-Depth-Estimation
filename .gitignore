@@ -1,0 +1,4 @@
+tmp/
+tmp-video-*/
+.DS_Store
+Thumbs.db

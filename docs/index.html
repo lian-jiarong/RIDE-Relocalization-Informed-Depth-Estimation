@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="RIDE reuses PnP-RANSAC inliers from 3DGS relocalization as sparse metric anchors for dense, temporally stable depth estimation."
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#070a11" />
+    <link rel="canonical" href="https://lian-jiarong.github.io/RIDE-Relocalization-Informed-Depth-Estimation/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://lian-jiarong.github.io/RIDE-Relocalization-Informed-Depth-Estimation/" />
+    <meta property="og:title" content="RIDE: Relocalization-Informed Depth Estimation" />
+    <meta
+      property="og:description"
+      content="Turn pose correspondences into dense metric depth."
+    />
+    <meta property="og:image" content="https://lian-jiarong.github.io/RIDE-Relocalization-Informed-Depth-Estimation/assets/media/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="RIDE: Relocalization-Informed Depth Estimation" />
+    <meta
+      name="twitter:description"
+      content="Turn pose correspondences into dense metric depth."
+    />
+    <meta name="twitter:image" content="https://lian-jiarong.github.io/RIDE-Relocalization-Informed-Depth-Estimation/assets/media/og.png" />
+    <title>RIDE: Relocalization-Informed Depth Estimation</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header">
+      <nav class="nav container" aria-label="Primary navigation">
+        <a class="brand" href="#top" aria-label="RIDE home">
+          <span class="brand-mark" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </span>
+          <span>RIDE</span>
+        </a>
+        <div class="nav-links">
+          <a href="#demo">Demo</a>
+          <a href="#method">Method</a>
+          <a href="#results">Results</a>
+          <a href="#evidence">Evidence</a>
+        </div>
+        <div class="review-state">
+          <span class="status-dot" aria-hidden="true"></span>
+          Project page
+        </div>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section class="hero container" id="top">
+        <div class="hero-copy">
+          <p class="eyebrow">RIDE: Relocalization-Informed Depth Estimation</p>
+          <h1>
+            Turn pose correspondences into
+            <span class="depth-text">dense metric depth.</span>
+          </h1>
+          <p class="hero-lede">
+            RIDE reuses PnP–RANSAC inliers from relocalization against a metric
+            3D Gaussian Splatting map as sparse depth anchors. A frozen video-depth
+            prior is then calibrated at global, local, and temporal scales—without
+            future frames.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#demo">Watch the result</a>
+            <a class="button button-secondary" href="#method">Explore the method</a>
+          </div>
+          <p class="release-note">Paper, code, and citation will be added when available.</p>
+        </div>
+
+        <div class="demo-shell" id="demo">
+          <div class="demo-topline">
+            <div><span class="live-dot" aria-hidden="true"></span> Robot sequence</div>
+            <div class="demo-tags" aria-label="Demo properties">
+              <span>1× playback</span>
+              <span>Causal</span>
+              <span>Metric</span>
+            </div>
+          </div>
+          <video
+            controls
+            playsinline
+            preload="metadata"
+            poster="./assets/media/ride-demo-poster.jpg"
+            aria-label="RIDE metric depth and point-cloud demo"
+          >
+            <source src="./assets/media/ride-demo.mp4" type="video/mp4" />
+            Your browser does not support the HTML video element.
+          </video>
+          <div class="demo-caption">
+            <strong>What you are seeing</strong>
+            <span>RGB-D reference · aligned RGB · RIDE depth · metric point cloud and camera trajectory</span>
+          </div>
+          <p class="demo-disclaimer">
+            RGB-D is displayed only for evaluation. It is not available to RIDE at inference.
+          </p>
+        </div>
+      </section>
+
+      <section class="signal-strip" aria-label="RIDE properties">
+        <div class="container signal-grid">
+          <div><span>01</span><strong>Metric 3DGS map</strong></div>
+          <div><span>02</span><strong>PnP inlier anchors</strong></div>
+          <div><span>03</span><strong>Global + local calibration</strong></div>
+          <div><span>04</span><strong>Causal temporal memory</strong></div>
+        </div>
+      </section>
+
+      <section class="section container" id="method">
+        <div class="section-heading split-heading">
+          <div>
+            <p class="eyebrow">Core idea</p>
+            <h2>One front end. Two useful outputs.</h2>
+          </div>
+          <p>
+            Render–match–PnP already creates geometrically verified 2D–3D
+            correspondences for camera pose. RIDE keeps the inliers and converts
+            their optical-axis coordinates into sparse metric depth anchors.
+          </p>
+        </div>
+
+        <div class="flow" aria-label="RIDE processing flow">
+          <div class="flow-step"><span>Input</span><strong>RGB window</strong></div>
+          <div class="flow-step"><span>Scene</span><strong>Metric 3DGS</strong></div>
+          <div class="flow-step"><span>Front end</span><strong>Render · match · PnP</strong></div>
+          <div class="flow-step flow-accent"><span>Reuse</span><strong>Inlier depth anchors</strong></div>
+          <div class="flow-step"><span>Calibrate</span><strong>Global · local · temporal</strong></div>
+          <div class="flow-step flow-output"><span>Output</span><strong>Dense metric depth</strong></div>
+        </div>
+
+        <div class="boundary-note">
+          <span class="note-icon" aria-hidden="true">i</span>
+          <p>
+            Only rendered depth at matched virtual pixels is sampled. The full rendered
+            depth map is never treated as query-image depth.
+          </p>
+        </div>
+
+        <div class="method-grid">
+          <article class="method-card">
+            <div class="method-index">01 / Global</div>
+            <h3>Robust global scale</h3>
+            <p>
+              A learned set encoder scores anchor reliability. Geometric confidence,
+              a Cauchy weight, and a weighted median limit outliers, while quality-gated
+              memory stabilizes the frame-level log scale.
+            </p>
+            <a class="figure-link" href="./assets/figures/global-scale.png" target="_blank" rel="noreferrer">
+              <img src="./assets/figures/global-scale.png" alt="Global scale correction module" loading="lazy" />
+              <span>Open diagram ↗</span>
+            </a>
+          </article>
+
+          <article class="method-card">
+            <div class="method-index">02 / Local</div>
+            <h3>Bounded local correction</h3>
+            <p>
+              VDA-S features and reliability-weighted sparse prompts feed a compact
+              decoder that predicts a bounded per-pixel log-scale residual instead of
+              replacing the video prior’s structure.
+            </p>
+            <a class="figure-link" href="./assets/figures/local-spatial.png" target="_blank" rel="noreferrer">
+              <img src="./assets/figures/local-spatial.png" alt="Local spatial correction module" loading="lazy" />
+              <span>Open diagram ↗</span>
+            </a>
+          </article>
+
+          <article class="method-card">
+            <div class="method-index">03 / Temporal</div>
+            <h3>Causal evidence reuse</h3>
+            <p>
+              Backward flow aligns a latent state—not a previous depth map. A ConvGRU
+              and utility gate reuse history when current anchors are weak, without
+              accessing future frames.
+            </p>
+            <a class="figure-link" href="./assets/figures/temporal-flow.png" target="_blank" rel="noreferrer">
+              <img src="./assets/figures/temporal-flow.png" alt="Flow-guided temporal correction module" loading="lazy" />
+              <span>Open diagram ↗</span>
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <section class="section results-section" id="results">
+        <div class="container">
+          <div class="section-heading split-heading">
+            <div>
+              <p class="eyebrow">Quantitative evaluation</p>
+              <h2>Results on the evaluated benchmark.</h2>
+            </div>
+            <p>
+              RIDE obtains the best point estimate among the methods in the current
+              comparison table across all five reported metrics.
+            </p>
+          </div>
+
+          <div class="headline-results">
+            <div class="headline-card">
+              <span class="headline-number">−31.0%</span>
+              <div>
+                <strong>AbsRel vs. Any2Full</strong>
+                <p>0.1617 → 0.1115</p>
+              </div>
+            </div>
+            <div class="headline-card">
+              <span class="headline-number">−41.5%</span>
+              <div>
+                <strong>Temporal geometric error</strong>
+                <p>vs. the best nonrecurrent baseline</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="metric-grid" aria-label="RIDE benchmark metrics">
+            <article class="metric-card">
+              <span class="metric-value">0.1115</span>
+              <strong>AbsRel ↓</strong>
+              <small>[0.0816, 0.1482]</small>
+            </article>
+            <article class="metric-card">
+              <span class="metric-value">0.9322</span>
+              <strong>δ1 ↑</strong>
+              <small>[0.9246, 0.9395]</small>
+            </article>
+            <article class="metric-card">
+              <span class="metric-value">0.1118</span>
+              <strong>Excl.-r4 AbsRel ↓</strong>
+              <small>[0.0817, 0.1488]</small>
+            </article>
+            <article class="metric-card">
+              <span class="metric-value">0.0675</span>
+              <strong>Held-out log ↓</strong>
+              <small>[0.0630, 0.0745]</small>
+            </article>
+            <article class="metric-card">
+              <span class="metric-value">0.0394</span>
+              <strong>TGE ↓</strong>
+              <small>[0.0372, 0.0420]</small>
+            </article>
+          </div>
+
+          <div class="ablation-block">
+            <div class="ablation-copy">
+              <p class="eyebrow">Ablation</p>
+              <h3>Each correction stage earns its place.</h3>
+              <p>
+                On the LingBot validation split, the spatial branch substantially lowers
+                frame-wise error; causal temporal correction further improves both depth
+                accuracy and temporal consistency.
+              </p>
+            </div>
+            <div class="ablation-chart" role="img" aria-label="Ablation values for AbsRel and TGE">
+              <div class="chart-head"><span>Variant</span><span>AbsRel</span><span>TGE</span></div>
+              <div class="chart-row">
+                <strong>Global only</strong>
+                <div class="bar"><i style="width: 100%"></i><span>0.21732</span></div>
+                <div class="bar bar-warm"><i style="width: 100%"></i><span>0.07129</span></div>
+              </div>
+              <div class="chart-row">
+                <strong>+ Spatial</strong>
+                <div class="bar"><i style="width: 54.2%"></i><span>0.11784</span></div>
+                <div class="bar bar-warm"><i style="width: 72.0%"></i><span>0.05132</span></div>
+              </div>
+              <div class="chart-row chart-best">
+                <strong>+ Temporal</strong>
+                <div class="bar"><i style="width: 43.6%"></i><span>0.09466</span></div>
+                <div class="bar bar-warm"><i style="width: 49.6%"></i><span>0.03537</span></div>
+              </div>
+            </div>
+          </div>
+
+          <p class="benchmark-note">
+            All methods use the same evaluation clips, valid-depth masks, and temporal
+            masks. No method uses held-out anchors or dense ground truth for calibration.
+          </p>
+        </div>
+      </section>
+
+      <section class="section container" id="evidence">
+        <div class="section-heading">
+          <p class="eyebrow">Evidence</p>
+          <h2>From verified matches to stable depth.</h2>
+          <p class="heading-lede">
+            The interface is inspectable at the correspondence level, and the temporal
+            behavior is evaluated across anchor outages and dynamic content.
+          </p>
+        </div>
+
+        <div class="evidence-stack">
+          <figure class="evidence-card">
+            <div class="figure-kicker">Representative frame · Anchor interface</div>
+            <a href="./assets/figures/anchor-interface.png" target="_blank" rel="noreferrer">
+              <img
+                src="./assets/figures/anchor-interface.png"
+                alt="Query image, rendered view, matches, PnP inliers, and anchor agreement plot"
+                loading="lazy"
+              />
+            </a>
+            <figcaption>
+              63 query–render matches produce 50 PnP inliers; 47 have valid RGB-D
+              references in this frame. Median anchor error is 0.138 m and P90 is 0.352 m.
+            </figcaption>
+          </figure>
+
+          <figure class="evidence-card evidence-card-dark">
+            <div class="figure-kicker">Qualitative temporal analysis</div>
+            <a href="./assets/figures/temporal-evidence.png" target="_blank" rel="noreferrer">
+              <img
+                src="./assets/figures/temporal-evidence.png"
+                alt="Space-time depth slices for static and dynamic scenes"
+                loading="lazy"
+              />
+            </a>
+            <figcaption>
+              Space–time depth slices show continuity through intermittent anchor outages
+              while remaining responsive to foreground motion.
+            </figcaption>
+          </figure>
+        </div>
+
+        <details class="architecture-details">
+          <summary>
+            <span>Inspect the full architecture</span>
+            <span aria-hidden="true">+</span>
+          </summary>
+          <a href="./assets/figures/full-architecture.png" target="_blank" rel="noreferrer">
+            <img
+              src="./assets/figures/full-architecture.png"
+              alt="Complete RIDE architecture"
+              loading="lazy"
+            />
+          </a>
+        </details>
+      </section>
+
+      <section class="section boundary-section">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">System boundary</p>
+            <h2>Training and deployment use the same anchor interface.</h2>
+          </div>
+          <div class="boundary-grid">
+            <article>
+              <span class="boundary-label">Training</span>
+              <h3>Controlled anchor failures</h3>
+              <p>
+                Registered depth sampled at valid corners provides clean synthetic anchors.
+                Dropout, clustering, background leakage, and perturbations simulate
+                relocalization failures on public RGB-D video data.
+              </p>
+            </article>
+            <article>
+              <span class="boundary-label">Deployment</span>
+              <h3>Real PnP inliers</h3>
+              <p>
+                The same interface receives uncertain sparse anchors from the 3DGS
+                relocalization front end. RGB-D is not used at inference.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section container limitations">
+        <div>
+          <p class="eyebrow">Scope</p>
+          <h2>What RIDE assumes.</h2>
+        </div>
+        <p>
+          RIDE assumes a metrically scaled 3DGS map and a usable relocalization front end.
+          Performance depends on anchor quality and coverage, optical-flow reliability,
+          and map completeness; recurrent states are reset at scene cuts or tracking
+          failures. The reported gains are limited to the evaluated sequences.
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="brand footer-brand">
+          <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span>RIDE</span>
+        </div>
+        <p>Project preview. Paper, code, and citation will be added when available.</p>
+      </div>
+    </footer>
+  </body>
+</html>
