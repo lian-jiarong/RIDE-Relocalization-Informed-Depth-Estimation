@@ -295,22 +295,6 @@ h1 {
   font-size: 0.78rem;
 }
 
-.affiliation-mark {
-  width: min(100%, 520px);
-  margin: 0 0 28px;
-  padding: 14px 18px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 14px;
-  background: #f7f3ed;
-  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.18);
-}
-
-.affiliation-mark img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
 .demo-shell {
   overflow: hidden;
   border: 1px solid var(--line-strong);
