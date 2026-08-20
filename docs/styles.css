@@ -574,19 +574,19 @@ h3 {
 }
 
 .method-overview-viewport {
-  overflow-x: auto;
-  overscroll-behavior-inline: contain;
+  overflow: hidden;
+  display: block;
   border: 1px solid rgba(7, 10, 17, 0.12);
   border-radius: 12px;
   background: #fff;
-  scrollbar-color: rgba(7, 10, 17, 0.42) rgba(7, 10, 17, 0.08);
 }
 
 .method-overview img {
   display: block;
   width: 100%;
-  min-width: 960px;
+  max-width: 100%;
   height: auto;
+  object-fit: contain;
 }
 
 .method-overview figcaption {
