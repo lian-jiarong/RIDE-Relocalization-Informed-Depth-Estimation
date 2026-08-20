@@ -142,49 +142,39 @@
           </p>
         </div>
 
-        <div class="method-grid">
-          <article class="method-card">
-            <div class="method-index">01 / Global</div>
-            <h3>Robust global scale</h3>
-            <p>
-              A learned set encoder scores anchor reliability. Geometric confidence,
-              a Cauchy weight, and a weighted median limit outliers, while quality-gated
-              memory stabilizes the frame-level log scale.
-            </p>
-            <a class="figure-link" href="./assets/figures/global-scale.png" target="_blank" rel="noreferrer">
-              <img src="./assets/figures/global-scale.png" alt="Global scale correction module" loading="lazy" />
-              <span>Open diagram ↗</span>
-            </a>
-          </article>
-
-          <article class="method-card">
-            <div class="method-index">02 / Local</div>
-            <h3>Bounded local correction</h3>
-            <p>
-              VDA-S features and reliability-weighted sparse prompts feed a compact
-              decoder that predicts a bounded per-pixel log-scale residual instead of
-              replacing the video prior’s structure.
-            </p>
-            <a class="figure-link" href="./assets/figures/local-spatial.png" target="_blank" rel="noreferrer">
-              <img src="./assets/figures/local-spatial.png" alt="Local spatial correction module" loading="lazy" />
-              <span>Open diagram ↗</span>
-            </a>
-          </article>
-
-          <article class="method-card">
-            <div class="method-index">03 / Temporal</div>
-            <h3>Causal evidence reuse</h3>
-            <p>
-              Backward flow aligns a latent state—not a previous depth map. A ConvGRU
-              and utility gate reuse history when current anchors are weak, without
-              accessing future frames.
-            </p>
-            <a class="figure-link" href="./assets/figures/temporal-flow.png" target="_blank" rel="noreferrer">
-              <img src="./assets/figures/temporal-flow.png" alt="Flow-guided temporal correction module" loading="lazy" />
-              <span>Open diagram ↗</span>
-            </a>
-          </article>
-        </div>
+        <figure class="method-overview">
+          <div class="figure-kicker">Paper figure · Complete RIDE architecture</div>
+          <div
+            class="method-overview-viewport"
+            role="region"
+            tabindex="0"
+            aria-label="Complete RIDE architecture diagram; horizontally scrollable on small screens"
+          >
+            <img
+              src="./assets/figures/full-architecture.png"
+              alt="RIDE system overview: PnP inlier anchors calibrate a frozen VDA-S prior using global scale, local spatial, and flow-guided causal temporal corrections."
+              width="4279"
+              height="2676"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <figcaption id="ride-overview-caption">
+            Overview of RIDE. PnP inliers from relocalization against a metric 3DGS map
+            calibrate a frozen VDA-S prior through global, spatial, and flow-guided
+            temporal corrections. Snowflakes, flames, and green blocks denote frozen
+            backbones, modules trained within RIDE, and analytic operations, respectively.
+          </figcaption>
+          <a
+            class="button button-secondary"
+            href="./assets/figures/full-architecture.png"
+            target="_blank"
+            rel="noreferrer"
+            aria-describedby="ride-overview-caption"
+          >
+            Open full-resolution figure ↗
+          </a>
+        </figure>
       </section>
 
       <section class="section results-section" id="results">
@@ -250,9 +240,9 @@
               <p class="eyebrow">Ablation</p>
               <h3>Each correction stage earns its place.</h3>
               <p>
-                On the LingBot validation split, the spatial branch substantially lowers
-                frame-wise error; causal temporal correction further improves both depth
-                accuracy and temporal consistency.
+                In the ablation study, the spatial branch substantially lowers frame-wise
+                error; causal temporal correction further improves both depth accuracy and
+                temporal consistency.
               </p>
             </div>
             <div class="ablation-chart" role="img" aria-label="Ablation values for AbsRel and TGE">
@@ -324,19 +314,6 @@
           </figure>
         </div>
 
-        <details class="architecture-details">
-          <summary>
-            <span>Inspect the full architecture</span>
-            <span aria-hidden="true">+</span>
-          </summary>
-          <a href="./assets/figures/full-architecture.png" target="_blank" rel="noreferrer">
-            <img
-              src="./assets/figures/full-architecture.png"
-              alt="Complete RIDE architecture"
-              loading="lazy"
-            />
-          </a>
-        </details>
       </section>
 
       <section class="section boundary-section">

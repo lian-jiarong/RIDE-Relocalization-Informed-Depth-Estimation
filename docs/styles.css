@@ -550,23 +550,6 @@ h3 {
   place-items: center;
 }
 
-.method-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-}
-
-.method-card {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  padding: 28px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-md);
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.018));
-}
-
-.method-index,
 .figure-kicker,
 .boundary-label {
   margin-bottom: 20px;
@@ -578,43 +561,43 @@ h3 {
   text-transform: uppercase;
 }
 
-.method-card > p {
-  flex-grow: 1;
-  margin-bottom: 26px;
-  color: var(--muted);
-  font-size: 0.9rem;
-}
-
-.figure-link {
-  position: relative;
-  overflow: hidden;
-  min-height: 188px;
+.method-overview {
+  margin: 0;
+  padding: clamp(16px, 2.5vw, 28px);
   border: 1px solid var(--line);
-  border-radius: 13px;
-  background: #f8fafc;
+  border-radius: var(--radius-md);
+  background: var(--surface);
 }
 
-.figure-link img {
+.method-overview .figure-kicker {
+  margin-bottom: 16px;
+}
+
+.method-overview-viewport {
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  border: 1px solid rgba(7, 10, 17, 0.12);
+  border-radius: 12px;
+  background: #fff;
+  scrollbar-color: rgba(7, 10, 17, 0.42) rgba(7, 10, 17, 0.08);
+}
+
+.method-overview img {
+  display: block;
   width: 100%;
-  height: 188px;
-  object-fit: contain;
-  transition: transform 240ms ease;
+  min-width: 960px;
+  height: auto;
 }
 
-.figure-link:hover img {
-  transform: scale(1.025);
+.method-overview figcaption {
+  max-width: 1040px;
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 0.84rem;
 }
 
-.figure-link span {
-  position: absolute;
-  right: 9px;
-  bottom: 9px;
-  padding: 6px 9px;
-  color: var(--text);
-  background: rgba(7, 10, 17, 0.88);
-  border-radius: 8px;
-  font-size: 0.69rem;
-  font-weight: 750;
+.method-overview .button {
+  margin-top: 18px;
 }
 
 .results-section {
@@ -845,49 +828,6 @@ h3 {
   color: var(--muted);
 }
 
-.architecture-details {
-  margin-top: 24px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-md);
-  background: var(--surface);
-}
-
-.architecture-details summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 72px;
-  padding: 0 24px;
-  cursor: pointer;
-  list-style: none;
-  font-size: 0.9rem;
-  font-weight: 750;
-}
-
-.architecture-details summary::-webkit-details-marker {
-  display: none;
-}
-
-.architecture-details summary span:last-child {
-  color: var(--lime);
-  font-size: 1.45rem;
-}
-
-.architecture-details[open] summary span:last-child {
-  transform: rotate(45deg);
-}
-
-.architecture-details a {
-  display: block;
-  padding: 0 24px 24px;
-}
-
-.architecture-details img {
-  width: 100%;
-  background: white;
-  border-radius: 12px;
-}
-
 .boundary-section {
   border-block: 1px solid var(--line);
   background: var(--bg-soft);
@@ -988,28 +928,6 @@ h3 {
 }
 
 @media (max-width: 1120px) {
-
-  .method-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .method-card {
-    display: grid;
-    grid-template-columns: 1fr minmax(320px, 0.9fr);
-    column-gap: 34px;
-  }
-
-  .method-card .method-index,
-  .method-card h3,
-  .method-card > p {
-    grid-column: 1;
-  }
-
-  .method-card .figure-link {
-    grid-column: 2;
-    grid-row: 1 / span 4;
-  }
-
   .metric-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -1125,18 +1043,6 @@ h3 {
 
   .flow-step:nth-child(even)::after {
     display: none;
-  }
-
-  .method-card {
-    display: flex;
-  }
-
-  .figure-link {
-    min-height: 150px;
-  }
-
-  .figure-link img {
-    height: 150px;
   }
 
   .metric-grid {
