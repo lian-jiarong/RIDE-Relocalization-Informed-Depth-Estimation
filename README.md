@@ -33,12 +33,14 @@ that personal project-page address.
 - For submission, make a separate anonymous mirror with clean ownership and history, or use `anonymous.4open.science`; link only that anonymous URL from the review manuscript.
 - Before creating the anonymous mirror, remove or replace the personal canonical, `og:url`, `og:image`, and `twitter:image` values, and change the visible `Project page` status if desired.
 - Before any public release, confirm participant consent and re-check every visible frame, figure, filename, and media metadata.
-- The web video is a separate derivative: 1920×1080, 25 fps H.264, silent audio removed, metadata stripped, desktop chrome cropped, and the visible face region blurred. The source video is unchanged.
+- The web videos are separate derivatives: 1920×1080, 25 fps H.264, silent audio removed, metadata stripped, and desktop chrome cropped. The visible face region in the Office sequence is blurred. The source videos are unchanged.
 
 ## Media
 
-- `docs/assets/media/ride-demo.mp4`: optimized web demo, approximately 15 MB.
-- `docs/assets/media/ride-demo-poster.jpg`: lightweight poster frame.
+- `docs/assets/media/ride-demo.mp4`: optimized Office demo, approximately 15 MB.
+- `docs/assets/media/ride-demo-poster.jpg`: Office poster frame.
+- `docs/assets/media/ride-demo-lobby.mp4`: optimized Lobby demo, approximately 10 MB.
+- `docs/assets/media/ride-demo-lobby-poster.jpg`: Lobby poster frame.
 - `docs/assets/figures/`: selected manuscript figures and focused method diagrams.
 
 ## Claims boundary

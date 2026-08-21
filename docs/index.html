@@ -76,19 +76,51 @@
 
         <div class="demo-shell" id="demo">
           <div class="demo-topline">
-            <div><span class="live-dot" aria-hidden="true"></span> Robot sequence</div>
-            <div class="demo-tags" aria-label="Demo properties">
-              <span>1× playback</span>
-              <span>Causal</span>
-              <span>Metric</span>
+            <div class="demo-sequence">
+              <span class="live-dot" aria-hidden="true"></span>
+              <span id="demo-sequence-label" aria-live="polite">Office sequence</span>
+            </div>
+            <div class="demo-topline-actions">
+              <div class="demo-switcher" role="group" aria-label="Choose demo location">
+                <button
+                  class="demo-option"
+                  type="button"
+                  aria-pressed="true"
+                  aria-controls="ride-demo-video"
+                  data-src="./assets/media/ride-demo.mp4"
+                  data-poster="./assets/media/ride-demo-poster.jpg"
+                  data-label="Office sequence"
+                >
+                  Office
+                </button>
+                <button
+                  class="demo-option"
+                  type="button"
+                  aria-pressed="false"
+                  aria-controls="ride-demo-video"
+                  data-src="./assets/media/ride-demo-lobby.mp4"
+                  data-poster="./assets/media/ride-demo-lobby-poster.jpg"
+                  data-label="Lobby sequence"
+                >
+                  Lobby
+                </button>
+              </div>
+              <div class="demo-tags" aria-label="Demo properties">
+                <span>2× playback</span>
+                <span>Causal</span>
+                <span>Metric</span>
+              </div>
             </div>
           </div>
           <video
+            id="ride-demo-video"
+            autoplay
             controls
+            muted
             playsinline
             preload="metadata"
             poster="./assets/media/ride-demo-poster.jpg"
-            aria-label="RIDE metric depth and point-cloud demo"
+            aria-label="RIDE Office metric depth and point-cloud demo"
           >
             <source src="./assets/media/ride-demo.mp4" type="video/mp4" />
             Your browser does not support the HTML video element.
@@ -368,5 +400,61 @@
         <p>Project preview. Paper, code, and citation will be added when available.</p>
       </div>
     </footer>
+    <script>
+      (() => {
+        const video = document.querySelector("#ride-demo-video");
+        const source = video?.querySelector("source");
+        const label = document.querySelector("#demo-sequence-label");
+        const options = Array.from(document.querySelectorAll(".demo-option"));
+        const playbackRate = 2;
+
+        if (!video || !source || !label || options.length === 0) return;
+
+        video.defaultPlaybackRate = playbackRate;
+        video.playbackRate = playbackRate;
+        video.defaultMuted = true;
+        video.muted = true;
+        video.addEventListener("loadedmetadata", () => {
+          video.playbackRate = playbackRate;
+        });
+
+        const activateDemo = (option, shouldPlay = true) => {
+          video.pause();
+          options.forEach((item) => {
+            item.setAttribute("aria-pressed", String(item === option));
+          });
+
+          source.src = option.dataset.src;
+          video.poster = option.dataset.poster;
+          video.setAttribute(
+            "aria-label",
+            `RIDE ${option.textContent.trim()} metric depth and point-cloud demo`,
+          );
+          label.textContent = option.dataset.label;
+          video.load();
+
+          if (shouldPlay) {
+            video.play().catch(() => {
+              // Controls remain available if the browser blocks autoplay.
+            });
+          }
+        };
+
+        options.forEach((option) => {
+          option.addEventListener("click", () => {
+            if (option.getAttribute("aria-pressed") === "true") return;
+            activateDemo(option);
+          });
+        });
+
+        video.addEventListener("ended", () => {
+          const activeIndex = options.findIndex(
+            (option) => option.getAttribute("aria-pressed") === "true",
+          );
+          const nextOption = options[(activeIndex + 1) % options.length];
+          activateDemo(nextOption);
+        });
+      })();
+    </script>
   </body>
 </html>
