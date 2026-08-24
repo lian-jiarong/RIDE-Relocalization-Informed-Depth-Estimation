@@ -26,7 +26,7 @@
     />
     <meta name="twitter:image" content="https://lian-jiarong.github.io/RIDE-Relocalization-Informed-Depth-Estimation/assets/media/og.png" />
     <title>RIDE: Relocalization-Informed Depth Estimation</title>
-    <link rel="stylesheet" href="./styles.css?v=20260821-2" />
+    <link rel="stylesheet" href="./styles.css?v=20260824-results" />
   </head>
 
   <body>
@@ -215,11 +215,11 @@
           <div class="section-heading split-heading">
             <div>
               <p class="eyebrow">Quantitative evaluation</p>
-              <h2>Results on the evaluated benchmark.</h2>
+              <h2>Results across benchmark and robot sequences.</h2>
             </div>
             <p>
-              RIDE obtains the best point estimate among the methods in the current
-              comparison table across all five reported metrics.
+              RIDE obtains the best result among the compared methods across all five
+              benchmark metrics and all three real-world robot metrics.
             </p>
           </div>
 
@@ -227,44 +227,84 @@
             <div class="headline-card">
               <span class="headline-number">−31.0%</span>
               <div>
-                <strong>AbsRel vs. Any2Full</strong>
+                <strong>Benchmark AbsRel vs. Any2Full</strong>
                 <p>0.1617 → 0.1115</p>
               </div>
             </div>
             <div class="headline-card">
               <span class="headline-number">−41.5%</span>
               <div>
-                <strong>Temporal geometric error</strong>
-                <p>vs. the best nonrecurrent baseline</p>
+                <strong>Benchmark TGE vs. best nonrecurrent baseline</strong>
+                <p>0.0674 → 0.0394</p>
               </div>
             </div>
           </div>
 
-          <div class="metric-grid" aria-label="RIDE benchmark metrics">
-            <article class="metric-card">
-              <span class="metric-value">0.1115</span>
-              <strong>AbsRel ↓</strong>
-              <small>[0.0816, 0.1482]</small>
+          <div class="evaluation-groups">
+            <article class="evaluation-group">
+              <div class="evaluation-group-header">
+                <div>
+                  <p class="eyebrow">Public benchmark</p>
+                  <h3>Best across five reported metrics.</h3>
+                </div>
+                <p>
+                  RIDE improves metric depth accuracy, held-out anchor agreement, and
+                  temporal consistency in the current comparison.
+                </p>
+              </div>
+              <div class="metric-grid" aria-label="RIDE public benchmark metrics">
+                <article class="metric-card">
+                  <span class="metric-value">0.1115</span>
+                  <strong>AbsRel ↓</strong>
+                </article>
+                <article class="metric-card">
+                  <span class="metric-value">0.9322</span>
+                  <strong>δ1 ↑</strong>
+                </article>
+                <article class="metric-card">
+                  <span class="metric-value">0.1118</span>
+                  <strong>Excl.-r4 AbsRel ↓</strong>
+                </article>
+                <article class="metric-card">
+                  <span class="metric-value">0.0675</span>
+                  <strong>Held-out log ↓</strong>
+                </article>
+                <article class="metric-card">
+                  <span class="metric-value">0.0394</span>
+                  <strong>TGE ↓</strong>
+                </article>
+              </div>
             </article>
-            <article class="metric-card">
-              <span class="metric-value">0.9322</span>
-              <strong>δ1 ↑</strong>
-              <small>[0.9246, 0.9395]</small>
-            </article>
-            <article class="metric-card">
-              <span class="metric-value">0.1118</span>
-              <strong>Excl.-r4 AbsRel ↓</strong>
-              <small>[0.0817, 0.1488]</small>
-            </article>
-            <article class="metric-card">
-              <span class="metric-value">0.0675</span>
-              <strong>Held-out log ↓</strong>
-              <small>[0.0630, 0.0745]</small>
-            </article>
-            <article class="metric-card">
-              <span class="metric-value">0.0394</span>
-              <strong>TGE ↓</strong>
-              <small>[0.0372, 0.0420]</small>
+
+            <article class="evaluation-group evaluation-group-robot">
+              <div class="evaluation-group-header">
+                <div>
+                  <p class="eyebrow">Real-world robot evaluation</p>
+                  <h3>Strong results across robot-acquired routes.</h3>
+                </div>
+                <div class="scope-tags" aria-label="Robot evaluation scope">
+                  <span>5 scenes</span>
+                  <span>26 routes</span>
+                </div>
+              </div>
+              <p class="evaluation-summary">
+                RIDE obtains the lowest AbsRel and TGE and the highest δ1 among the
+                compared methods on the robot sequences.
+              </p>
+              <div class="metric-grid robot-metric-grid" aria-label="RIDE robot sequence metrics">
+                <article class="metric-card">
+                  <span class="metric-value">0.0927</span>
+                  <strong>AbsRel ↓</strong>
+                </article>
+                <article class="metric-card">
+                  <span class="metric-value">0.9361</span>
+                  <strong>δ1 ↑</strong>
+                </article>
+                <article class="metric-card">
+                  <span class="metric-value">0.0298</span>
+                  <strong>TGE ↓</strong>
+                </article>
+              </div>
             </article>
           </div>
 
@@ -299,8 +339,9 @@
           </div>
 
           <p class="benchmark-note">
-            All methods use the same evaluation clips, valid-depth masks, and temporal
-            masks. No method uses held-out anchors or dense ground truth for calibration.
+            The robot evaluation covers 26 routes across five real-world scenes. All methods
+            use the same evaluation clips, valid-depth masks, and temporal masks. No method
+            uses held-out anchors or dense ground truth for calibration.
           </p>
         </div>
       </section>
