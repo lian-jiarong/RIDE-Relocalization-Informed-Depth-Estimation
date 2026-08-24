@@ -26,7 +26,7 @@
     />
     <meta name="twitter:image" content="https://lian-jiarong.github.io/RIDE-Relocalization-Informed-Depth-Estimation/assets/media/og.png" />
     <title>RIDE: Relocalization-Informed Depth Estimation</title>
-    <link rel="stylesheet" href="./styles.css?v=20260824-results" />
+    <link rel="stylesheet" href="./styles.css?v=20260824-robot-chart" />
   </head>
 
   <body>
@@ -291,6 +291,74 @@
                 RIDE obtains the lowest AbsRel and TGE and the highest δ1 among the
                 compared methods on the robot sequences.
               </p>
+              <div
+                class="robot-comparison-chart"
+                role="img"
+                aria-label="Horizontal bar comparison of RIDE and the strongest baseline on robot sequences: AbsRel 0.0927 versus 0.1056, delta one 0.9361 versus 0.8919, and TGE 0.0298 versus 0.0530."
+              >
+                <div class="robot-chart-topline">
+                  <strong>RIDE vs. strongest baseline</strong>
+                  <div class="robot-chart-legend" aria-hidden="true">
+                    <span><i class="legend-baseline"></i>Best baseline</span>
+                    <span><i class="legend-ride"></i>RIDE</span>
+                  </div>
+                </div>
+
+                <div class="robot-chart-metric">
+                  <div class="robot-chart-metric-head">
+                    <strong>AbsRel</strong>
+                    <span>Lower is better ↓</span>
+                  </div>
+                  <div class="robot-bar-row">
+                    <span class="robot-bar-label">Best baseline<small>Spatial decoder</small></span>
+                    <span class="robot-bar-track"><i class="robot-bar-baseline" style="width: 100%"></i></span>
+                    <strong>0.1056</strong>
+                  </div>
+                  <div class="robot-bar-row robot-bar-row-ride">
+                    <span class="robot-bar-label">RIDE</span>
+                    <span class="robot-bar-track"><i class="robot-bar-ride" style="width: 87.8%"></i></span>
+                    <strong>0.0927</strong>
+                  </div>
+                </div>
+
+                <div class="robot-chart-metric">
+                  <div class="robot-chart-metric-head">
+                    <strong>δ1</strong>
+                    <span>Higher is better ↑</span>
+                  </div>
+                  <div class="robot-bar-row">
+                    <span class="robot-bar-label">Best baseline<small>Spatial decoder</small></span>
+                    <span class="robot-bar-track"><i class="robot-bar-baseline" style="width: 95.3%"></i></span>
+                    <strong>0.8919</strong>
+                  </div>
+                  <div class="robot-bar-row robot-bar-row-ride">
+                    <span class="robot-bar-label">RIDE</span>
+                    <span class="robot-bar-track"><i class="robot-bar-ride" style="width: 100%"></i></span>
+                    <strong>0.9361</strong>
+                  </div>
+                </div>
+
+                <div class="robot-chart-metric">
+                  <div class="robot-chart-metric-head">
+                    <strong>TGE</strong>
+                    <span>Lower is better ↓</span>
+                  </div>
+                  <div class="robot-bar-row">
+                    <span class="robot-bar-label">Best baseline<small>Robust scale</small></span>
+                    <span class="robot-bar-track"><i class="robot-bar-baseline" style="width: 100%"></i></span>
+                    <strong>0.0530</strong>
+                  </div>
+                  <div class="robot-bar-row robot-bar-row-ride">
+                    <span class="robot-bar-label">RIDE</span>
+                    <span class="robot-bar-track"><i class="robot-bar-ride" style="width: 56.2%"></i></span>
+                    <strong>0.0298</strong>
+                  </div>
+                </div>
+
+                <p class="robot-chart-note">
+                  Bars are scaled within each metric; raw values are shown.
+                </p>
+              </div>
               <div class="metric-grid robot-metric-grid" aria-label="RIDE robot sequence metrics">
                 <article class="metric-card">
                   <span class="metric-value">0.0927</span>
