@@ -26,7 +26,7 @@
     />
     <meta name="twitter:image" content="https://lian-jiarong.github.io/RIDE-Relocalization-Informed-Depth-Estimation/assets/media/og.png" />
     <title>RIDE: Relocalization-Informed Depth Estimation</title>
-    <link rel="stylesheet" href="./styles.css?v=20260824-robot-chart" />
+    <link rel="stylesheet" href="./styles.css?v=20260827-switcher" />
   </head>
 
   <body>
@@ -81,41 +81,6 @@
               <span id="demo-sequence-label" aria-live="polite">Office sequence</span>
             </div>
             <div class="demo-topline-actions">
-              <div class="demo-switcher" role="group" aria-label="Choose demo location">
-                <button
-                  class="demo-option"
-                  type="button"
-                  aria-pressed="true"
-                  aria-controls="ride-demo-video"
-                  data-src="./assets/media/ride-demo.mp4"
-                  data-poster="./assets/media/ride-demo-poster.jpg"
-                  data-label="Office sequence"
-                >
-                  Office
-                </button>
-                <button
-                  class="demo-option"
-                  type="button"
-                  aria-pressed="false"
-                  aria-controls="ride-demo-video"
-                  data-src="./assets/media/ride-demo-lobby.mp4"
-                  data-poster="./assets/media/ride-demo-lobby-poster.jpg"
-                  data-label="Lobby sequence"
-                >
-                  Lobby
-                </button>
-                <button
-                  class="demo-option"
-                  type="button"
-                  aria-pressed="false"
-                  aria-controls="ride-demo-video"
-                  data-src="./assets/media/ride-demo-lobby2.mp4"
-                  data-poster="./assets/media/ride-demo-lobby2-poster.jpg"
-                  data-label="Lobby 2 sequence"
-                >
-                  Lobby 2
-                </button>
-              </div>
               <div class="demo-tags" aria-label="Demo properties">
                 <span>2× playback</span>
                 <span>Causal</span>
@@ -136,6 +101,43 @@
             <source src="./assets/media/ride-demo.mp4" type="video/mp4" />
             Your browser does not support the HTML video element.
           </video>
+          <div class="demo-switcher-row">
+            <div class="demo-switcher" role="group" aria-label="Choose demo location">
+              <button
+                class="demo-option"
+                type="button"
+                aria-pressed="true"
+                aria-controls="ride-demo-video"
+                data-src="./assets/media/ride-demo.mp4"
+                data-poster="./assets/media/ride-demo-poster.jpg"
+                data-label="Office sequence"
+              >
+                Office
+              </button>
+              <button
+                class="demo-option"
+                type="button"
+                aria-pressed="false"
+                aria-controls="ride-demo-video"
+                data-src="./assets/media/ride-demo-lobby.mp4"
+                data-poster="./assets/media/ride-demo-lobby-poster.jpg"
+                data-label="Lobby sequence"
+              >
+                Lobby
+              </button>
+              <button
+                class="demo-option"
+                type="button"
+                aria-pressed="false"
+                aria-controls="ride-demo-video"
+                data-src="./assets/media/ride-demo-lobby2.mp4"
+                data-poster="./assets/media/ride-demo-lobby2-poster.jpg"
+                data-label="Lobby 2 sequence"
+              >
+                Lobby 2
+              </button>
+            </div>
+          </div>
           <div class="demo-caption">
             <strong>What you are seeing</strong>
             <span>RGB-D reference · aligned RGB · RIDE depth · metric point cloud and camera trajectory</span>
@@ -175,14 +177,6 @@
           <div class="flow-step flow-accent"><span>Reuse</span><strong>Inlier depth anchors</strong></div>
           <div class="flow-step"><span>Calibrate</span><strong>Global · local · temporal</strong></div>
           <div class="flow-step flow-output"><span>Output</span><strong>Dense metric depth</strong></div>
-        </div>
-
-        <div class="boundary-note">
-          <span class="note-icon" aria-hidden="true">i</span>
-          <p>
-            Only rendered depth at matched virtual pixels is sampled. The full rendered
-            depth map is never treated as query-image depth.
-          </p>
         </div>
 
         <figure class="method-overview">
@@ -497,18 +491,6 @@
         </div>
       </section>
 
-      <section class="section container limitations">
-        <div>
-          <p class="eyebrow">Scope</p>
-          <h2>What RIDE assumes.</h2>
-        </div>
-        <p>
-          RIDE assumes a metrically scaled 3DGS map and a usable relocalization front end.
-          Performance depends on anchor quality and coverage, optical-flow reliability,
-          and map completeness; recurrent states are reset at scene cuts or tracking
-          failures. The reported gains are limited to the evaluated sequences.
-        </p>
-      </section>
     </main>
 
     <footer class="site-footer">
