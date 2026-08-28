@@ -412,9 +412,11 @@
           </div>
 
           <p class="benchmark-note">
-            The robot evaluation covers 27 routes across five real-world scenes. All methods
-            use the same evaluation clips, valid-depth masks, and temporal masks. No method
-            uses held-out anchors or dense ground truth for calibration.
+            The robot evaluation covers 3,012 frames along 27 routes across five real-world
+            scenes. All methods are run on the same input frames. AbsRel and δ1 are computed
+            over valid registered RGB-D reference pixels, while TGE uses the same precomputed
+            flow and temporal-validity masks for all methods. Registered RGB-D and held-out
+            anchors are not used for test-time calibration.
           </p>
         </div>
       </section>
