@@ -1251,6 +1251,17 @@ h3 {
     flex-direction: column;
   }
 
+  .demo-switcher {
+    display: grid;
+    width: min(100%, 340px);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-radius: 22px;
+  }
+
+  .demo-option {
+    width: 100%;
+  }
+
   .demo-tags {
     justify-content: flex-start;
   }
