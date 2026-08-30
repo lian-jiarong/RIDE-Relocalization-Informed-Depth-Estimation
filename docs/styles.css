@@ -546,11 +546,13 @@ h3 {
 
 .flow-step {
   position: relative;
-  min-height: 126px;
+  display: flex;
+  min-height: 164px;
   padding: 20px;
   border: 1px solid var(--line);
   border-radius: 14px;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.018));
+  flex-direction: column;
 }
 
 .flow-step:not(:last-child)::after {
@@ -558,21 +560,35 @@ h3 {
   top: 50%;
   right: -13px;
   z-index: 2;
-  display: grid;
+  display: block;
+  box-sizing: border-box;
   width: 18px;
   height: 18px;
-  color: var(--quiet);
   background: var(--bg);
   border: 1px solid var(--line);
   border-radius: 999px;
-  content: "›";
-  place-items: center;
+  content: "";
   transform: translateY(-50%);
+}
+
+.flow-step:not(:last-child)::before {
+  position: absolute;
+  top: calc(50% - 3px);
+  right: -7px;
+  z-index: 3;
+  display: block;
+  box-sizing: border-box;
+  width: 6px;
+  height: 6px;
+  border-top: 1.5px solid var(--quiet);
+  border-right: 1.5px solid var(--quiet);
+  content: "";
+  transform: rotate(45deg);
 }
 
 .flow-step span {
   display: block;
-  margin-bottom: 22px;
+  margin-bottom: 18px;
   color: var(--quiet);
   font-size: 0.68rem;
   font-weight: 800;
@@ -582,9 +598,18 @@ h3 {
 
 .flow-step strong {
   display: block;
-  max-width: 150px;
+  max-width: 190px;
   font-size: 0.93rem;
   line-height: 1.35;
+}
+
+.flow-step small {
+  display: block;
+  margin-top: auto;
+  padding-top: 16px;
+  color: var(--quiet);
+  font-size: 0.68rem;
+  line-height: 1.4;
 }
 
 .flow-accent {
@@ -1202,7 +1227,8 @@ h3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .flow-step:nth-child(3)::after {
+  .flow-step:nth-child(3)::after,
+  .flow-step:nth-child(3)::before {
     display: none;
   }
 
@@ -1308,11 +1334,13 @@ h3 {
     grid-template-columns: 1fr 1fr;
   }
 
-  .flow-step:nth-child(3)::after {
-    display: grid;
+  .flow-step:nth-child(3)::after,
+  .flow-step:nth-child(3)::before {
+    display: block;
   }
 
-  .flow-step:nth-child(even)::after {
+  .flow-step:nth-child(even)::after,
+  .flow-step:nth-child(even)::before {
     display: none;
   }
 

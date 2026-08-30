@@ -26,7 +26,7 @@
     />
     <meta name="twitter:image" content="https://lian-jiarong.github.io/RIDE-Relocalization-Informed-Depth-Estimation/assets/media/og.png" />
     <title>RIDE: Relocalization-Informed Depth Estimation</title>
-    <link rel="stylesheet" href="./styles.css?v=20260830-results" />
+    <link rel="stylesheet" href="./styles.css?v=20260830-method-flow-align" />
   </head>
 
   <body>
@@ -182,12 +182,36 @@
         </div>
 
         <div class="flow" aria-label="RIDE processing flow">
-          <div class="flow-step"><span>Input</span><strong>RGB window</strong></div>
-          <div class="flow-step"><span>Scene</span><strong>Metric 3DGS</strong></div>
-          <div class="flow-step"><span>Front end</span><strong>Render · match · PnP</strong></div>
-          <div class="flow-step flow-accent"><span>Reuse</span><strong>Inlier depth anchors</strong></div>
-          <div class="flow-step"><span>Calibrate</span><strong>Global · local · temporal</strong></div>
-          <div class="flow-step flow-output"><span>Output</span><strong>Dense metric depth</strong></div>
+          <div class="flow-step">
+            <span>Input</span>
+            <strong>Causal RGB stream</strong>
+            <small>Current and previous frames</small>
+          </div>
+          <div class="flow-step">
+            <span>Scene map</span>
+            <strong>Metric 3DGS</strong>
+            <small>Rendered RGB and metric depth</small>
+          </div>
+          <div class="flow-step">
+            <span>Relocalize</span>
+            <strong>Render · match · PnP-RANSAC</strong>
+            <small>Pose plus verified inliers</small>
+          </div>
+          <div class="flow-step flow-accent">
+            <span>Reuse</span>
+            <strong>Pixel–depth anchors</strong>
+            <small>PnP inliers as sparse metric evidence</small>
+          </div>
+          <div class="flow-step">
+            <span>Calibrate prior</span>
+            <strong>Global scale · local residual · temporal memory</strong>
+            <small>Frozen VDA-S remains the base</small>
+          </div>
+          <div class="flow-step flow-output">
+            <span>Output</span>
+            <strong>Dense metric depth</strong>
+            <small>Causal prediction per frame</small>
+          </div>
         </div>
 
         <figure class="method-overview">
