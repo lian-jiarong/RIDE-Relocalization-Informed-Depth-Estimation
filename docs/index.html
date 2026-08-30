@@ -26,7 +26,7 @@
     />
     <meta name="twitter:image" content="https://lian-jiarong.github.io/RIDE-Relocalization-Informed-Depth-Estimation/assets/media/og.png" />
     <title>RIDE: Relocalization-Informed Depth Estimation</title>
-    <link rel="stylesheet" href="./styles.css?v=20260830-lobby3" />
+    <link rel="stylesheet" href="./styles.css?v=20260830-results" />
   </head>
 
   <body>
@@ -231,27 +231,35 @@
           <div class="section-heading split-heading">
             <div>
               <p class="eyebrow">Quantitative evaluation</p>
-              <h2>Results across benchmark and robot sequences.</h2>
+              <h2>Competitive on LingBot, leading on robot routes.</h2>
             </div>
             <p>
-              RIDE obtains the best result among the compared methods across all five
-              benchmark metrics and all three real-world robot metrics.
+              RIDE ranks first on three of five LingBot metrics and second on the other
+              two, then obtains the best reported point estimates across all three
+              real-world robot metrics.
             </p>
           </div>
 
           <div class="headline-results">
             <div class="headline-card">
-              <span class="headline-number">−31.0%</span>
+              <span class="headline-number">3 / 5</span>
               <div>
-                <strong>Benchmark AbsRel vs. Any2Full</strong>
-                <p>0.1617 → 0.1115</p>
+                <strong>Best LingBot metrics</strong>
+                <p>δ1 · held-out log error · TGE</p>
               </div>
             </div>
             <div class="headline-card">
-              <span class="headline-number">−41.5%</span>
+              <span class="headline-number">#2</span>
               <div>
-                <strong>Benchmark TGE vs. best nonrecurrent baseline</strong>
-                <p>0.0674 → 0.0394</p>
+                <strong>LingBot AbsRel and Excl.-r4</strong>
+                <p>Ahead of eight of nine baselines on both</p>
+              </div>
+            </div>
+            <div class="headline-card">
+              <span class="headline-number">3 / 3</span>
+              <div>
+                <strong>Best robot metrics</strong>
+                <p>AbsRel · δ1 · TGE</p>
               </div>
             </div>
           </div>
@@ -260,34 +268,40 @@
             <article class="evaluation-group">
               <div class="evaluation-group-header">
                 <div>
-                  <p class="eyebrow">Public benchmark</p>
-                  <h3>Best across five reported metrics.</h3>
+                  <p class="eyebrow">LingBot benchmark</p>
+                  <h3>Three wins, two runner-up results.</h3>
                 </div>
                 <p>
-                  RIDE improves metric depth accuracy, held-out anchor agreement, and
-                  temporal consistency in the current comparison.
+                  RIDE leads δ1, held-out log error, and TGE. PriorDA v1.1 leads AbsRel
+                  and Excl.-r4; RIDE ranks second on both and outperforms the other eight
+                  baselines.
                 </p>
               </div>
-              <div class="metric-grid" aria-label="RIDE public benchmark metrics">
-                <article class="metric-card">
+              <div class="metric-grid" aria-label="RIDE LingBot benchmark metrics and rankings">
+                <article class="metric-card metric-card-runner-up">
                   <span class="metric-value">0.1115</span>
                   <strong>AbsRel ↓</strong>
+                  <small>2nd · PriorDA 0.0917</small>
                 </article>
-                <article class="metric-card">
+                <article class="metric-card metric-card-best">
                   <span class="metric-value">0.9322</span>
                   <strong>δ1 ↑</strong>
+                  <small>Best · +1.47 pp vs. PriorDA</small>
                 </article>
-                <article class="metric-card">
+                <article class="metric-card metric-card-runner-up">
                   <span class="metric-value">0.1118</span>
                   <strong>Excl.-r4 AbsRel ↓</strong>
+                  <small>2nd · PriorDA 0.0920</small>
                 </article>
-                <article class="metric-card">
+                <article class="metric-card metric-card-best">
                   <span class="metric-value">0.0675</span>
                   <strong>Held-out log ↓</strong>
+                  <small>Best · 11.6% lower vs. PriorDA</small>
                 </article>
-                <article class="metric-card">
+                <article class="metric-card metric-card-best">
                   <span class="metric-value">0.0394</span>
                   <strong>TGE ↓</strong>
+                  <small>Best · 49.7% lower vs. PriorDA</small>
                 </article>
               </div>
             </article>
@@ -296,7 +310,7 @@
               <div class="evaluation-group-header">
                 <div>
                   <p class="eyebrow">Real-world robot evaluation</p>
-                  <h3>Strong results across robot-acquired routes.</h3>
+                  <h3>Best point estimates across 27 robot routes.</h3>
                 </div>
                 <div class="scope-tags" aria-label="Robot evaluation scope">
                   <span>5 scenes</span>
@@ -376,15 +390,15 @@
                 </p>
               </div>
               <div class="metric-grid robot-metric-grid" aria-label="RIDE robot sequence metrics">
-                <article class="metric-card">
+                <article class="metric-card metric-card-best">
                   <span class="metric-value">0.0927</span>
                   <strong>AbsRel ↓</strong>
                 </article>
-                <article class="metric-card">
+                <article class="metric-card metric-card-best">
                   <span class="metric-value">0.9361</span>
                   <strong>δ1 ↑</strong>
                 </article>
-                <article class="metric-card">
+                <article class="metric-card metric-card-best">
                   <span class="metric-value">0.0298</span>
                   <strong>TGE ↓</strong>
                 </article>
