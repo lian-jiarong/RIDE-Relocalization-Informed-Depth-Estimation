@@ -45,6 +45,8 @@ that personal project-page address.
 - `docs/assets/media/ride-demo-lobby2-poster.jpg`: Lobby 2 poster frame.
 - `docs/assets/media/ride-demo-lobby3.mp4`: optimized Lobby 3 demo, approximately 12 MB.
 - `docs/assets/media/ride-demo-lobby3-poster.jpg`: Lobby 3 poster frame.
+- `docs/assets/media/ride-demo-exhibition.mp4`: optimized Exhibition demo, approximately 17 MB.
+- `docs/assets/media/ride-demo-exhibition-poster.jpg`: Exhibition poster frame.
 - `docs/assets/figures/`: selected manuscript figures and focused method diagrams.
 
 ## Claims boundary
