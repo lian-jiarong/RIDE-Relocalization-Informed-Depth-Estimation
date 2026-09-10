@@ -12,21 +12,21 @@
     <link rel="canonical" href="https://lian-jiarong.github.io/RIDE-Relocalization-Informed-Depth-Estimation/" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://lian-jiarong.github.io/RIDE-Relocalization-Informed-Depth-Estimation/" />
-    <meta property="og:title" content="RIDE: Relocalization-Informed Depth Estimation" />
+    <meta property="og:title" content="RIDE: Relocalization-Informed Depth Estimation with 3D Gaussian Splatting" />
     <meta
       property="og:description"
       content="Turn pose correspondences into dense metric depth."
     />
     <meta property="og:image" content="https://lian-jiarong.github.io/RIDE-Relocalization-Informed-Depth-Estimation/assets/media/og.png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="RIDE: Relocalization-Informed Depth Estimation" />
+    <meta name="twitter:title" content="RIDE: Relocalization-Informed Depth Estimation with 3D Gaussian Splatting" />
     <meta
       name="twitter:description"
       content="Turn pose correspondences into dense metric depth."
     />
     <meta name="twitter:image" content="https://lian-jiarong.github.io/RIDE-Relocalization-Informed-Depth-Estimation/assets/media/og.png" />
-    <title>RIDE: Relocalization-Informed Depth Estimation</title>
-    <link rel="stylesheet" href="./styles.css?v=20260830-exhibition" />
+    <title>RIDE: Relocalization-Informed Depth Estimation with 3D Gaussian Splatting</title>
+    <link rel="stylesheet" href="./styles.css?v=20260910-paper-sync" />
   </head>
 
   <body>
@@ -56,16 +56,17 @@
     <main id="main-content">
       <section class="hero container" id="top">
         <div class="hero-copy">
-          <p class="eyebrow">RIDE: Relocalization-Informed Depth Estimation</p>
+          <p class="eyebrow">RIDE: Relocalization-Informed Depth Estimation with 3D Gaussian Splatting</p>
           <h1>
             Turn pose correspondences into
             <span class="depth-text">dense metric depth.</span>
           </h1>
           <p class="hero-lede">
             RIDE reuses PnP–RANSAC inliers from relocalization against a metric
-            3D Gaussian Splatting map as sparse depth anchors. A frozen video-depth
-            prior is then calibrated at global, local, and temporal scales—without
-            future frames.
+            3D Gaussian Splatting map as sparse depth anchors. Robust global-scale
+            estimation, bounded spatial correction, and flow-guided causal memory
+            calibrate a frozen VDA-S prior, sustaining metric depth through short
+            anchor gaps after scale initialization.
           </p>
           <div class="hero-actions">
             <a class="button button-primary" href="#demo">Watch the result</a>
@@ -196,32 +197,32 @@
           <div class="flow-step">
             <span>Input</span>
             <strong>Causal RGB stream</strong>
-            <small>Current and previous frames</small>
+            <small>Frames through the current time</small>
           </div>
           <div class="flow-step">
             <span>Scene map</span>
             <strong>Metric 3DGS</strong>
-            <small>Rendered RGB and metric depth</small>
+            <small>Rendered RGB and depth from a coarse pose</small>
           </div>
           <div class="flow-step">
             <span>Relocalize</span>
             <strong>Render · match · PnP-RANSAC</strong>
-            <small>Pose plus verified inliers</small>
+            <small>Refined pose plus verified inliers</small>
           </div>
           <div class="flow-step flow-accent">
             <span>Reuse</span>
-            <strong>Pixel–depth anchors</strong>
-            <small>PnP inliers as sparse metric evidence</small>
+            <strong>Query pixel–depth anchors</strong>
+            <small>Optical-axis depth from PnP inliers</small>
           </div>
           <div class="flow-step">
             <span>Calibrate prior</span>
-            <strong>Global scale · local residual · temporal memory</strong>
-            <small>Frozen VDA-S remains the base</small>
+            <strong>Global scale · spatial residual · temporal memory</strong>
+            <small>Frozen VDA-S and SEA-RAFT remain the base</small>
           </div>
           <div class="flow-step flow-output">
             <span>Output</span>
             <strong>Dense metric depth</strong>
-            <small>Causal prediction per frame</small>
+            <small>Causal output after scale initialization</small>
           </div>
         </div>
 
@@ -229,29 +230,30 @@
           <div class="figure-kicker">Paper figure · Complete RIDE architecture</div>
           <a
             class="method-overview-viewport"
-            href="./assets/figures/full-architecture.png?v=20260830-2"
+            href="./assets/figures/full-architecture.png?v=20260910"
             target="_blank"
             rel="noreferrer"
             aria-label="Open the complete RIDE architecture figure at full resolution"
           >
             <img
-              src="./assets/figures/full-architecture.png?v=20260830-2"
-              alt="RIDE system overview: PnP inlier anchors calibrate a frozen VDA-S prior using global scale, local spatial, and flow-guided causal temporal corrections."
-              width="4279"
-              height="2676"
+              src="./assets/figures/full-architecture.png?v=20260910"
+              alt="RIDE system overview and global-local-temporal architecture: PnP inlier anchors calibrate a frozen VDA-S prior using recurrent global scale, local spatial, and flow-guided causal temporal corrections."
+              width="4286"
+              height="2682"
               loading="lazy"
               decoding="async"
             />
           </a>
           <figcaption id="ride-overview-caption">
-            Overview of RIDE. PnP inliers from relocalization against a metric 3DGS map
-            calibrate a frozen VDA-S prior through global, spatial, and flow-guided
-            temporal corrections. Snowflakes, flames, and green blocks denote frozen
-            backbones, modules trained within RIDE, and analytic operations, respectively.
+            RIDE couples render–match–PnP relocalization with dense metric depth.
+            Learned reliability, recurrent global-scale memory, bounded spatial residuals,
+            and flow-guided causal memory calibrate a frozen VDA-S prior. Snowflakes,
+            flames, and teal blocks denote frozen backbones, modules learned by RIDE,
+            and analytic or parameter-free operations, respectively.
           </figcaption>
           <a
             class="button button-secondary"
-            href="./assets/figures/full-architecture.png?v=20260830-2"
+            href="./assets/figures/full-architecture.png?v=20260910"
             target="_blank"
             rel="noreferrer"
             aria-describedby="ride-overview-caption"
@@ -269,15 +271,15 @@
               <h2>Competitive on LingBot, leading on robot routes.</h2>
             </div>
             <p>
-              RIDE ranks first on three of five LingBot metrics and second on the other
-              two, then obtains the best reported point estimates across all three
+              RIDE ranks first on three of four LingBot metrics and second on AbsRel,
+              then obtains the best reported point estimates across all three
               real-world robot metrics.
             </p>
           </div>
 
           <div class="headline-results">
             <div class="headline-card">
-              <span class="headline-number">3 / 5</span>
+              <span class="headline-number">3 / 4</span>
               <div>
                 <strong>Best LingBot metrics</strong>
                 <p>δ1 · held-out log error · TGE</p>
@@ -286,8 +288,8 @@
             <div class="headline-card">
               <span class="headline-number">#2</span>
               <div>
-                <strong>LingBot AbsRel and Excl.-r4</strong>
-                <p>Ahead of eight of nine baselines on both</p>
+                <strong>LingBot AbsRel</strong>
+                <p>2nd · ahead of eight of nine baselines</p>
               </div>
             </div>
             <div class="headline-card">
@@ -304,12 +306,11 @@
               <div class="evaluation-group-header">
                 <div>
                   <p class="eyebrow">LingBot benchmark</p>
-                  <h3>Three wins, two runner-up results.</h3>
+                  <h3>Three wins, one runner-up result.</h3>
                 </div>
                 <p>
-                  RIDE leads δ1, held-out log error, and TGE. PriorDA v1.1 leads AbsRel
-                  and Excl.-r4; RIDE ranks second on both and outperforms the other eight
-                  baselines.
+                  RIDE leads δ1, held-out log error, and TGE. PriorDA v1.1 leads AbsRel;
+                  RIDE ranks second and outperforms the other eight baselines.
                 </p>
               </div>
               <div class="metric-grid" aria-label="RIDE LingBot benchmark metrics and rankings">
@@ -323,20 +324,15 @@
                   <strong>δ1 ↑</strong>
                   <small>Best · +1.47 pp vs. PriorDA</small>
                 </article>
-                <article class="metric-card metric-card-runner-up">
-                  <span class="metric-value">0.1118</span>
-                  <strong>Excl.-r4 AbsRel ↓</strong>
-                  <small>2nd · PriorDA 0.0920</small>
-                </article>
                 <article class="metric-card metric-card-best">
                   <span class="metric-value">0.0675</span>
                   <strong>Held-out log ↓</strong>
-                  <small>Best · 11.6% lower vs. PriorDA</small>
+                  <small>Best · 6.5% lower vs. Any2Full</small>
                 </article>
                 <article class="metric-card metric-card-best">
                   <span class="metric-value">0.0394</span>
                   <strong>TGE ↓</strong>
-                  <small>Best · 49.7% lower vs. PriorDA</small>
+                  <small>Best · 41.5% lower vs. spatial variant</small>
                 </article>
               </div>
             </article>
@@ -446,37 +442,39 @@
               <p class="eyebrow">Ablation</p>
               <h3>Each correction stage earns its place.</h3>
               <p>
-                In the ablation study, the spatial branch substantially lowers frame-wise
-                error; causal temporal correction further improves both depth accuracy and
-                temporal consistency.
+                The spatial decoder substantially lowers frame-wise error. Full RIDE adds
+                global-scale memory and flow-guided temporal correction, improving both
+                depth accuracy and temporal consistency.
               </p>
             </div>
-            <div class="ablation-chart" role="img" aria-label="Ablation values for AbsRel and TGE">
+            <div class="ablation-chart" role="img" aria-label="Ablation AbsRel and TGE for Global only, Spatial only, and Full RIDE">
               <div class="chart-head"><span>Variant</span><span>AbsRel</span><span>TGE</span></div>
               <div class="chart-row">
                 <strong>Global only</strong>
-                <div class="bar"><i style="width: 100%"></i><span>0.21732</span></div>
-                <div class="bar bar-warm"><i style="width: 100%"></i><span>0.07129</span></div>
+                <div class="bar"><i style="width: 100%"></i><span>0.2173</span></div>
+                <div class="bar bar-warm"><i style="width: 100%"></i><span>0.0713</span></div>
               </div>
               <div class="chart-row">
-                <strong>+ Spatial</strong>
-                <div class="bar"><i style="width: 54.2%"></i><span>0.11784</span></div>
-                <div class="bar bar-warm"><i style="width: 72.0%"></i><span>0.05132</span></div>
+                <strong>Spatial only</strong>
+                <div class="bar"><i style="width: 54.2%"></i><span>0.1178</span></div>
+                <div class="bar bar-warm"><i style="width: 72.0%"></i><span>0.0513</span></div>
               </div>
               <div class="chart-row chart-best">
-                <strong>+ Temporal</strong>
-                <div class="bar"><i style="width: 43.6%"></i><span>0.09466</span></div>
-                <div class="bar bar-warm"><i style="width: 49.6%"></i><span>0.03537</span></div>
+                <strong>Full RIDE</strong>
+                <div class="bar"><i style="width: 43.6%"></i><span>0.0947</span></div>
+                <div class="bar bar-warm"><i style="width: 49.6%"></i><span>0.0354</span></div>
               </div>
             </div>
           </div>
 
           <p class="benchmark-note">
             The robot evaluation covers 3,012 frames along 27 routes across five real-world
-            scenes. All methods are run on the same input frames. AbsRel and δ1 are computed
-            over valid registered RGB-D reference pixels, while TGE uses the same precomputed
-            flow and temporal-validity masks for all methods. Registered RGB-D and held-out
-            anchors are not used for test-time calibration.
+            scenes. Every method processes the same frames. AbsRel and δ1 are scored on the
+            intersection of each method's valid-output mask and the required registered RGB-D
+            reference mask; TGE additionally uses shared precomputed flow and temporal-validity
+            masks. Models use weights trained on public RGB-D sequences without robot-data
+            training or fine-tuning. Registered RGB-D is evaluation-only, and robot PnP anchors
+            are deployment inputs rather than held-out calibration targets.
           </p>
         </div>
       </section>
@@ -529,24 +527,25 @@
         <div class="container">
           <div class="section-heading">
             <p class="eyebrow">System boundary</p>
-            <h2>Training and deployment use the same anchor interface.</h2>
+            <h2>Training and deployment share a pixel–depth anchor interface.</h2>
           </div>
           <div class="boundary-grid">
             <article>
               <span class="boundary-label">Training</span>
               <h3>Controlled anchor failures</h3>
               <p>
-                Registered depth sampled at valid corners provides clean synthetic anchors.
-                Dropout, clustering, background leakage, and perturbations simulate
-                relocalization failures on public RGB-D video data.
+                Registered depth sampled at detected feature locations provides RGB-D-derived
+                anchors. Withholding, dropout, count caps, structured outliers, and anchor
+                outages simulate relocalization conditions on public RGB-D videos.
               </p>
             </article>
             <article>
               <span class="boundary-label">Deployment</span>
-              <h3>Real-world PnP inliers</h3>
+              <h3>Relocalization-derived PnP inliers</h3>
               <p>
-                The same interface receives uncertain sparse anchors from the 3DGS
-                relocalization front end. RGB-D is not used at inference.
+                The same interface receives sparse anchors from the metric 3DGS
+                relocalization front end. The learned weights transfer without robot-data
+                fine-tuning; RGB-D remains evaluation-only.
               </p>
             </article>
           </div>
