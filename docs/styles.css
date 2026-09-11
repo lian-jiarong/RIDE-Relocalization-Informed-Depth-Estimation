@@ -168,6 +168,27 @@ a {
   color: var(--text);
 }
 
+.paper-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.arxiv-wordmark {
+  display: block;
+  flex: 0 0 auto;
+  width: auto;
+  height: 1.28em;
+}
+
+.nav-links .arxiv-wordmark {
+  height: 1.42em;
+}
+
+.paper-link-arrow {
+  line-height: 1;
+}
+
 .review-state {
   display: inline-flex;
   align-items: center;
